@@ -168,10 +168,3 @@ Or run a specific test file:
 ```bash
 pytest tests/test_routes.py
 ```
----
-
-## Author
-
-Ann Maina
-
----
