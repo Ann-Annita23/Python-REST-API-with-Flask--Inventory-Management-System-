@@ -2,20 +2,22 @@
 
 ## Overview
 
-The Inventory Management System is a Python Flask REST API project that allows users to manage products through a Command Line Interface (CLI). Users can add, view, update, and delete inventory items. The application also integrates with the OpenFoodFacts API, allowing users to search for products by barcode and optionally add them to their inventory.
+The Inventory Management System is a Python Flask REST API project that enables users to manage products through a Command Line Interface (CLI). The application supports CRUD (Create, Read, Update, Delete) operations and integrates with the OpenFoodFacts API, allowing users to search for products by barcode or product name and optionally add them to their inventory.
 
 ---
 
 ## Features
 
 - View all inventory items
-- Add a new product
-- Update an existing product
-- Delete a product
-- Search for products using the OpenFoodFacts API
-- Add products from OpenFoodFacts directly into the inventory
-- Simple command-line interface
-- REST API built with Flask
+- Add new products to the inventory
+- Update existing products
+- Delete products from the inventory
+- Search products by barcode using the OpenFoodFacts API
+- Search products by product name using the OpenFoodFacts API
+- Add products retrieved from OpenFoodFacts directly into the inventory
+- Command Line Interface (CLI) for interacting with the REST API
+- Flask REST API supporting CRUD operations
+- Unit testing using Pytest
 
 ---
 
@@ -26,14 +28,14 @@ The Inventory Management System is a Python Flask REST API project that allows u
 - Requests
 - REST API
 - JSON
-- Pytest (Testing)
+- Pytest
 
 ---
 
 ## Project Structure
 
-```
-Week 2 Summative Lab/
+```text
+Python-REST-API-with-Flask--Inventory-Management-System-/
 │
 ├── app/
 │   ├── __init__.py
@@ -41,9 +43,8 @@ Week 2 Summative Lab/
 │   └── routes.py
 │
 ├── client/
-│   └── cli.py
-|   └── OpenFoodFacts.py
-|
+│   ├── cli.py
+│   └── OpenFoodFacts.py
 │
 ├── tests/
 │   └── test_routes.py
@@ -57,62 +58,82 @@ Week 2 Summative Lab/
 
 ## Installation
 
-### Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Ann-Annita23/Python-REST-API-with-Flask--Inventory-Management-System-.git
 ```
 
-### Create a virtual environment
+### 2. Navigate into the project directory
+
+```bash
+cd Python-REST-API-with-Flask--Inventory-Management-System-
+```
+
+### 3. Create a virtual environment
 
 ```bash
 python3 -m venv venv
 ```
 
-### Activate the virtual environment
+### 4. Activate the virtual environment
 
-Linux/Mac
+#### Linux/macOS
 
 ```bash
 source venv/bin/activate
 ```
 
-Windows
+#### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-### Install dependencies
+### 5. Install the required dependencies
 
 ```bash
-pip install flask requests pytest
+pip install -r requirements.txt
 ```
 
 ---
 
 ## Running the Application
 
-### Start the Flask server
+### Terminal 1: Start the Flask Server
 
 ```bash
 python3 run.py
 ```
 
-The server will run on
+The server will start on:
 
 ```
 http://127.0.0.1:5000
 ```
 
-### Start the CLI
+### Terminal 2: Start the Command Line Interface
 
-Open another terminal.
-
-Activate the virtual environment again, then run:
+Open a new terminal, activate the virtual environment, then run:
 
 ```bash
+source venv/bin/activate
 python3 client/cli.py
+```
+
+---
+
+## CLI Menu
+
+```
+====== INVENTORY MANAGEMENT ======
+
+1. View Inventory
+2. Add Product
+3. Update Product
+4. Delete Product
+5. Find Product on OpenFoodFacts
+6. Exit
 ```
 
 ---
@@ -121,10 +142,10 @@ python3 client/cli.py
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| GET | /inventory | View all products |
-| POST | /inventory | Add a new product |
-| PATCH | /inventory/<id> | Update a product |
-| DELETE | /inventory/<id> | Delete a product |
+| GET | `/inventory` | Retrieve all inventory items |
+| POST | `/inventory` | Add a new product |
+| PATCH | `/inventory/<id>` | Update an existing product |
+| DELETE | `/inventory/<id>` | Delete a product |
 
 ---
 
@@ -143,15 +164,27 @@ python3 client/cli.py
 
 ## OpenFoodFacts Integration
 
-The application allows users to search products using a barcode.
+The application integrates with the OpenFoodFacts API, allowing users to:
 
-Example barcode:
+- Search for products using a barcode
+- Search for products by product name
+- View product information such as:
+  - Product name
+  - Brand
+  - Ingredients
+- Add selected products directly into the inventory
+
+### Example Barcode
 
 ```
 3017620422003
 ```
 
-If a product is found, the application displays its details and gives the user the option to add it to the inventory.
+### Example Product Name
+
+```
+Nutella
+```
 
 ---
 
@@ -160,11 +193,17 @@ If a product is found, the application displays its details and gives the user t
 Run all tests using:
 
 ```bash
-pytest
+python3 -m pytest
 ```
 
-Or run a specific test file:
+Run a specific test file:
 
 ```bash
-pytest tests/test_routes.py
+python3 -m pytest tests/test_routes.py
 ```
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
+
+---

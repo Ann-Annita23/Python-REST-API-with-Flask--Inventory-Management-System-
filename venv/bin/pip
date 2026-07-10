@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/student/Desktop/Flask Folder/Week 2 Summartive lab/venv/bin/python3" "$0" "$@"
+'''exec' "/home/student/Desktop/Flask Folder/Python-REST-API-with-Flask--Inventory-Management-System-/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re

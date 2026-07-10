@@ -25,8 +25,8 @@ def test_add_product(client):
         "/inventory",
         json = {
             "product_name": "Milk",
-            "": 50,
-            "": 20,
+            "price": 50,
+            "stock": 20,
         }
     )  
     assert response.status_code == 201
@@ -43,7 +43,7 @@ def test_update_product(client):
         "stock": 20
     })
     response = client.patch(
-        "/inventory/1"
+        "/inventory/1",
         json={
             "price":70
         }
