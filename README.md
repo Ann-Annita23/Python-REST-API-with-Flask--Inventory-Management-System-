@@ -43,14 +43,14 @@ Python-REST-API-with-Flask--Inventory-Management-System-/
 │   └── routes.py
 │
 ├── client/
-│   ├── cli.py
-│   └── OpenFoodFacts.py
+│   └── cli.py
 │
 ├── tests/
 │   └── test_routes.py
 │
 ├── run.py
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
@@ -106,7 +106,7 @@ pip install -r requirements.txt
 python3 run.py
 ```
 
-The server will start on:
+The server runs on:
 
 ```
 http://127.0.0.1:5000
@@ -114,7 +114,7 @@ http://127.0.0.1:5000
 
 ### Terminal 2: Start the Command Line Interface
 
-Open a new terminal, activate the virtual environment, then run:
+Open another terminal, activate the virtual environment, then run:
 
 ```bash
 source venv/bin/activate
@@ -154,7 +154,7 @@ python3 client/cli.py
 ```json
 {
     "id": 1,
-    "product_name": "milk",
+    "product_name": "Milk",
     "price": 50.0,
     "stock": 20
 }
@@ -168,16 +168,16 @@ The application integrates with the OpenFoodFacts API, allowing users to:
 
 - Search for products using a barcode
 - Search for products by product name
-- View product information such as:
+- View product information including:
   - Product name
   - Brand
   - Ingredients
-- Add selected products directly into the inventory
+- Add selected products directly into the inventory through the CLI
 
 ### Example Barcode
 
 ```
-3017620422003
+737628064502
 ```
 
 ### Example Product Name
@@ -186,11 +186,13 @@ The application integrates with the OpenFoodFacts API, allowing users to:
 Nutella
 ```
 
+> **Note:** The inventory is currently stored in an in-memory Python list (`models.py`). Data will reset whenever the Flask server is restarted.
+
 ---
 
 ## Running Tests
 
-Run all tests using:
+Run all tests:
 
 ```bash
 python3 -m pytest
@@ -202,8 +204,26 @@ Run a specific test file:
 python3 -m pytest tests/test_routes.py
 ```
 
+Example output:
+
+```text
+==============================
+4 passed
+==============================
+```
+
+---
+
+## Repository
+
+GitHub Repository:
+
+```
+https://github.com/Ann-Annita23/Python-REST-API-with-Flask--Inventory-Management-System-
+```
+
+---
+
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more information.
-
----

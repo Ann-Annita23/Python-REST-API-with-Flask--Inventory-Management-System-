@@ -101,93 +101,105 @@ def main():
                 
                 ## External API
             elif choice == "5":
-                try:
-                    print("\n======OPEN FOOD FACTS ======")
-                    print("1. Search by Barcode")
-                    print("2. Search by Product Name")
 
-                    search_choice = input("Choose an Option: ")
+                print("\n======OPEN FOOD FACTS ======")
+                print("1. Search by Barcode")
+                print("2. Search by Product Name")
+
+                search_choice = input("Choose an Option: ")
+
+                try:  
+        #-------------------- Barcode Search ---------------------              
                     if search_choice == "1":
                         barcode = input("Choose an Barcode: ")
-                # --------------------------Barcode Search-----------------------        
-
+                  
                         url = f"https://world.openfoodfacts.org/api/v0/product/{barcode}.json"
-                        headers = {
-                            "User-Agent": "FoodApp/1.0 "
-                        }
-                        response = requests.get(url, headers=headers)
+                        
+                        response = requests.get(
+                            url,
+                            headers={"User-Agent": "InventoryApp/1.0 (student project)"},
+                            timeout=10
+                        )
+
+                        print("Status Code:", response.status_code)
+                        print("Final URL:", response.url)
+                        print("Headers:", response.request.headers)
+
+                        response.raise_for_status()
                         data = response.json()
-                        if data["status"] == 1:
 
-                            product = data["product"]
-
-                            print("\n====== PRODUCT FOUND ======")
-                            print(f"Name: {product.get('product_name', 'N/A')}")
-                            print(f"Brand: {product.get('brands','N/A')}")
-                            print(f"Ingredients: {product.get('ingredients_text', 'N/A')}")
+                        if data.get("status") != 1:
+                            print("Product not found.")
+                            continue
+                        product=data["product"]
                             
-                            add = input("\nAdd this product to inventory?(y/n): ")
-                            
-                            if add.lower() =="y":
-                                price = float(input("Enter price: "))
-                                stock = int(input("Enter stock quantity: "))
-
-                                new_item = {
-                                    "product_name": product.get("product_name", "Unknown Product"),
-                                    "price": price,
-                                    "stock": stock
-                                }
-
-                                response = requests.post(
-                                    "http://127.0.0.1:5000/inventory",
-                                    json = new_item
-                                )
-
-                                print(response.json())
-                            else:
-                                print("Product not found.")
                     #------------------------ Name Search --------------------
                     elif search_choice == "2":
-                        product_name = input("Enter product name: ")
+                        product_name = input("Enter product name: ").strip()
                         
-                        url =(
-                            f"https://world.openfoodfacts.org/cgi/search.pl?"
-                            f"search_terms={product_name}"
-                            "&search_simple=1"
-                            "&action=process"
-                            "&json=1"
-                        )
-                        response = requests.get(url)
+                        url = "https://world.openfoodfacts.org/cgi/search.pl"
+                        
+                        params = {
+                            "search_terms": product_name,
+                            "search_simple": 1,
+                            "action": "process",
+                            "json": 1
+                        }   
+                        response = requests.get(url,params=params,headers={"User-Agent": "InventoryApp/1.0 (student portal)"},timeout=10)
+                        
+                        print("Status Code:", response.status_code)
+                        print("Final URL:", response.url)
+                        print("Headers:", response.request.headers)
+                        
+                        response.raise_for_status()
                         data = response.json()
-                        if data["products"]:
-                            product = data["products"][0]
-                            print("\n====== PRODUCT FOUND ======")
-                            print(f"Name: {product.get('product_name','N/A')}")
-                            print(f"Brand: {product.get('brands', 'N/A')}")
+                        products =data.get("products",[])
 
-                            add = input("\n Add this product to inventory? (y/n): ")
-                            if add.lower() == "y":
+                        if not products:
+                            print("No products found.")
+                            continue
+                        product = products[0]
+                        print(product)
+                    else:
+                        print("Invalid option.")
+                        continue
+            #---------------------- Display Product ---------------------------------------            
+                    print("\n====== PRODUCT FOUND ======")
+                    print(f"Name: {product.get('product_name','N/A')}")
+                    print(f"Brand: {product.get('brands', 'N/A')}")
+                    print(f"Ingredients: {product.get('ingredients_text','N/A')}")
 
-                                price =float(input("Enter price: "))
-                                stock = int(input("Enter stock quantity: "))
+            #---------------------- Add to Inventory ----------------------------------------                
 
-                                new_item ={
-                                    "product_name": product.get("product_name", "Unknown Product"),
-                                    "price": price,
-                                    "stock": stock
-                                }
+                    add = input("\n Add this product to inventory? (y/n): ")
+                    if add.lower() == "y":
+                        price =float(input("Enter price: "))
+                        stock = int(input("Enter stock quantity: "))
 
-                                response = requests.post(
-                                    "http://127.0.0.1:5000/inventory",
-                                    json = new_item
-                                )
-                                print(response.json())
-                            else: 
-                                print("Product wasnot added")
-                        else:
-                            print("No products found")
+                        new_item ={
+                            "product_name": product.get("product_name", "Unknown Product"),
+                            "price": price,
+                            "stock": stock
+                        }
+
+                        api_response = requests.post(
+                            "http://127.0.0.1:5000/inventory",
+                            json = new_item,
+                            timeout=10
+                        )
+                            
+                        api_response.raise_for_status()
+                        print("\nProduct added successfully")
+                        print(api_response.json())
+                    else: 
+                        print("Product was not added")
+                except requests.exceptions.RequestException as e:
+                    print(f"Connection Error: {e}")
+                except ValueError:
+                    print("Received an invalid response from OpenFoodFacts.")
                 except Exception as e:
-                        print(e)                                
+                    print(f"Unexpected Error: {e}")     
+                                                       
             ## Breakin Point
             elif choice == "6":
                 print("Thank you for using Inventory Management System.")
