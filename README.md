@@ -102,22 +102,41 @@ pip install -r requirements.txt
 
 ### Terminal 1: Start the Flask Server
 
+Create and activate the virtual environment (if you haven't already):
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Start the Flask server:
+
 ```bash
 python3 run.py
 ```
 
-The server runs on:
+The server will run at:
 
 ```
 http://127.0.0.1:5000
 ```
 
+---
+
 ### Terminal 2: Start the Command Line Interface
 
-Open another terminal, activate the virtual environment, then run:
+Open a new terminal.
+
+Navigate to the project directory and activate the virtual environment:
 
 ```bash
+cd Python-REST-API-with-Flask--Inventory-Management-System-
 source venv/bin/activate
+```
+
+Run the CLI:
+
+```bash
 python3 client/cli.py
 ```
 
