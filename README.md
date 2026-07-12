@@ -58,39 +58,39 @@ Python-REST-API-with-Flask--Inventory-Management-System-/
 
 ## Installation
 
-### 1. Clone the repository
+1. Clone the repository
 
 ```bash
 git clone https://github.com/Ann-Annita23/Python-REST-API-with-Flask--Inventory-Management-System-.git
 ```
 
-### 2. Navigate into the project directory
+2. Navigate into the project directory
 
 ```bash
 cd Python-REST-API-with-Flask--Inventory-Management-System-
 ```
 
-### 3. Create a virtual environment
+3. Create a virtual environment
 
 ```bash
 python3 -m venv venv
 ```
 
-### 4. Activate the virtual environment
+4. Activate the virtual environment
 
-#### Linux/macOS
+**Linux/macOS**
 
 ```bash
 source venv/bin/activate
 ```
 
-#### Windows
+**Windows**
 
 ```bash
 venv\Scripts\activate
 ```
 
-### 5. Install the required dependencies
+5. Install the required dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -102,11 +102,24 @@ pip install -r requirements.txt
 
 ### Terminal 1: Start the Flask Server
 
-Create and activate the virtual environment (if you haven't already):
+Open a terminal and navigate to the project directory:
 
 ```bash
-python3 -m venv venv
+cd Python-REST-API-with-Flask--Inventory-Management-System-
+```
+
+Activate the virtual environment.
+
+**Linux/macOS**
+
+```bash
 source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
 ```
 
 Start the Flask server:
@@ -115,7 +128,7 @@ Start the Flask server:
 python3 run.py
 ```
 
-The server will run at:
+The server will be available at:
 
 ```
 http://127.0.0.1:5000
@@ -123,15 +136,28 @@ http://127.0.0.1:5000
 
 ---
 
-### Terminal 2: Start the Command Line Interface
+### Terminal 2: Start the Command Line Interface (CLI)
 
-Open a new terminal.
+Open a **new terminal**.
 
-Navigate to the project directory and activate the virtual environment:
+Navigate to the project directory:
 
 ```bash
 cd Python-REST-API-with-Flask--Inventory-Management-System-
+```
+
+Activate the same virtual environment.
+
+**Linux/macOS**
+
+```bash
 source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
 ```
 
 Run the CLI:
